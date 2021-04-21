@@ -1,21 +1,3 @@
-/*----------------------------------------------------------------
-
-	Template Name: Hayley - Creative Personal Onepage HTML Template
-
-	-------------------------------------------------------------------------------*/
-
-/**************************************************************
-	
-	Main Js Activation
-	01. Preloader
-	02. Menu
-	03. Header Shadow 
-	04. Pagepiling
-	05. Carousels
-	06. Forms
-	__ End Js Activation
-
-***************************************************************/
 
 (function ($) {
 	'use strict';
@@ -68,7 +50,7 @@
 		$('.a-pagepiling').pagepiling({
 			scrollingSpeed: 280,
 			menu: '#menu, #menuMain',
-			anchors: ['Intro', 'Services', 'Projects', 'Awards', 'Experience', 'Clients', 'Testimonials', 'Contact'],
+			anchors: ['Main', 'Design', 'WEB', 'Desktop', 'Community', 'Mobile', 'Feedback', 'Contact'],
 			loopTop: false,
 			loopBottom: false,
 			navigation: {
