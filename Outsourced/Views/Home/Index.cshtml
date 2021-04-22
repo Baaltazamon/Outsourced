@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<ProjectNewsModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 <body class="body-copyright-light">
@@ -172,27 +173,30 @@
 
                 <div class="section pp-scrollable slide-dark slide-dark-bg text-white slide-personal-projects">
                     <div class="carousel-project-personal a-carousel-projects owl-carousel owl-theme">
-                        <div class="carousel-project-item" style="background-image: url(img/bg-personal-project-2.jpg);">
+                        @foreach (var item in Model)
+                        {
+                        <div class="carousel-project-item" style="background-image: url(@Html.DisplayFor(modelItem=> item.BackGround));">
                             <div class="slide-container">
                                 <div class="container">
                                     <div class="slide-num">3</div>
                                     <div class="animate-element delay5 fadeInDown">
                                         <div class="row">
                                             <div class="col-md-7">
-                                                <div class="slide-title-sub slide-title-sub-md">постигай вершины</div>
+                                                <div class="slide-title-sub slide-title-sub-md">@Html.DisplayFor(modelItem => item.SubHeader)</div>
                                             </div>
                                             <div class="col-md-5 text-md-right">
-                                                <div class="project-date">Июнь 2022</div>
+                                                <div class="project-date">@Html.DisplayFor(modelItem => item.DateRelease)</div>
                                                 <div class="slide-title-sub slide-title-sub-md mb-md-3">Релиз</div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-7">
-                                                <h3 class="slide-title text-white">Новый сайт московского метро</h3>
+                                                <h3 class="slide-title text-white">@Html.DisplayFor(modelItem => item.Header)</h3>
                                                 <div class="row">
                                                     <div class="col-lg-8">
-                                                        <div class="slide-descr slide-descr-projects">Одна из последних работ наших сотрудников — это разработка нового, 
-                                                            современного сайта по гос. заказу администрации города.</div>
+                                                        <div class="slide-descr slide-descr-projects">
+                                                            @Html.DisplayFor(modelItem => item.Description)
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="slide-btn slide-btn-projects">
@@ -205,103 +209,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-project-item" style="background-image: url(img/bg-personal-project-1.jpg);">
-                            <div class="slide-container">
-                                <div class="container">
-                                    <div class="slide-num">3</div>
-                                    <div class="animate-element delay5 fadeInDown">
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <div class="slide-title-sub slide-title-sub-md">постигай вершины</div>
-                                            </div>
-                                            <div class="col-md-5 text-md-right">
-                                                <div class="project-date">октябрь 2021</div>
-                                                <div class="slide-title-sub slide-title-sub-md mb-md-3">Релиз</div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <h3 class="slide-title text-white">Сайт для ремонтно-строительной компании</h3>
-                                                <div class="row">
-                                                    <div class="col-lg-8">
-                                                        <div class="slide-descr slide-descr-projects">Мой дом — моя крепость, так говорят в народе, а если в этом доме еще и чертовски красиво... Ммм...Жизнь, безусловно становится лучше.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="slide-btn slide-btn-projects">
-                                                    <a href="#" class="btn btn-success">Посмотреть проект</a>
-                                                    <a href="#" class="slide-projects-more mt-2 mb-2">Посмотреть все работы</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-project-item" style="background-image: url(img/bg-personal-project-3.jpg);">
-                            <div class="slide-container">
-                                <div class="container">
-                                    <div class="slide-num">3</div>
-                                    <div class="animate-element delay5 fadeInDown">
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <div class="slide-title-sub slide-title-sub-md">featured works</div>
-                                            </div>
-                                            <div class="col-md-5 text-md-right">
-                                                <div class="project-date">август 2021</div>
-                                                <div class="slide-title-sub slide-title-sub-md mb-md-3">Релиз</div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <h3 class="slide-title text-white">iron character</h3>
-                                                <div class="row">
-                                                    <div class="col-lg-8">
-                                                        <div class="slide-descr slide-descr-projects">Спортивное движение в России набирает обороты. Наши сотрудники тоже в теме,
-                                                            поэтому данный проект им особенно интересен.</div>
-                                                    </div>
-                                                </div>
-                                                <div class="slide-btn slide-btn-projects">
-                                                    <a href="#" class="btn btn-success">Посмотреть проект</a>
-                                                    <a href="#" class="slide-projects-more mt-2 mb-2">Посмотреть все работы</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-project-item" style="background-image: url(img/bg-personal-project-4.jpg);">
-                            <div class="slide-container">
-                                <div class="container">
-                                    <div class="slide-num">3</div>
-                                    <div class="animate-element delay5 fadeInDown">
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <div class="slide-title-sub slide-title-sub-md">featured works</div>
-                                            </div>
-                                            <div class="col-md-5 text-md-right">
-                                                <div class="project-date">август 2021</div>
-                                                <div class="slide-title-sub slide-title-sub-md mb-md-3">Релиз</div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-7">
-                                                <h3 class="slide-title text-white">Beutiful Life</h3>
-                                                <div class="row">
-                                                    <div class="col-lg-8">
-                                                        <div class="slide-descr slide-descr-projects">Сайт для наших новых партнеров — фотостудии "Beutiful Life" взамен на шикарные фотосессии. Ох, какие же там фоточки!!!</div>
-                                                    </div>
-                                                </div>
-                                                <div class="slide-btn slide-btn-projects">
-                                                    <a href="#" class="btn btn-success">Посмотреть проект</a>
-                                                    <a href="#" class="slide-projects-more mt-2 mb-2">Посмотреть все работы</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        }
+
+
                     </div>
                 </div>
 
@@ -395,7 +305,8 @@
                                                     <div class="experience-item-title slide-title-sub">Как стать Senior разработчиком</div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <div class="experience-item-descr slide-descr">Обсудим основные обязанности Senior'а. Наши сотрудники расскажут свои истории успеха.</div>
+                                                    <div class="experience-item-descr slide-descr">Обсудим основные обязанности Senior'а.
+                                                        Наши сотрудники расскажут свои истории успеха.</div>
                                                 </div>
                                             </div>
                                         </div>

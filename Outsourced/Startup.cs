@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Outsourced.Implementations.Interfaces;
+using Outsourced.Implementations.Services;
 
 namespace Outsourced
 {
@@ -24,6 +26,8 @@ namespace Outsourced
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<IProjectNews, ProjectNewsService>();
+            services.AddSingleton<ICommunity, CommunityService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
