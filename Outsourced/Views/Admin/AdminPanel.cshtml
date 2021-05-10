@@ -1,0 +1,263 @@
+﻿@model Tuple<List<ProjectNews>, List<Community>, List<Request>, List<User>, List<TypeRequest>, List<Administrator>>
+
+<div class="section pp-scrollable slide-personal-services">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-light slide-services-circle2 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-services-circle1 transformRight"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">1</div>
+            <div class="row">
+
+                <div class="col-12">
+                    <h3 class="slide-title-info animate-element delay5 fadeInDown">Заявки</h3>
+
+                </div>
+            </div>
+
+            <div class="row animate-element delay5 fadeInUp">
+
+                <div class="col-12">
+                    <div class="service-list row">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Почта пользователь</th>
+                                    <th>Вид проекта</th>
+                                    <th>Техническое задание</th>
+                                    <th>Пожелания</th>
+                                    <th>Заявка обработана админом</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Item3)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserRequest)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Type)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TechnicalTask)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Wishes)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Administrator)
+                                        </td>
+                                        <td>
+                                            <a asp-action="ConfirmRequest" asp-route-id="@item.Id"><i class="lni lni-checkmark"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section pp-scrollable slide-dark slide-dark-footer slide-personal-intro">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-light slide-services-circle2 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-services-circle1 transformRight"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">2</div>
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <h3 class="animate-element delay5 fadeInDown">Администраторы</h3>
+                    <div class="animate-element delay5 fadeInUp">
+                        <p>
+                            <a asp-action="NewAdmin"><i class="btn btn-success">Добавить нового</i></a>
+                        </p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Имя пользователя</th>
+                                    <th>Фамилия</th>
+                                    <th>Имя</th>
+                                    <th>Отчество</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Item6)
+                                {
+                                <tr>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-us="@item.UserName"><i class="lni lni-highlight-alt"></i></a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LastName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FirstName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MiddleName)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Delete" asp-route-username="@item.UserName"><i class="lni lni-close"></i></a>
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section pp-scrollable slide-personal-services">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-light slide-services-circle2 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-services-circle1 transformRight"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">3</div>
+            <div class="row">
+                
+                <div class="col-12">
+                    <h3 class="slide-title-info animate-element delay5 fadeInDown">Новости проектов</h3>
+                    <p>
+                        <a asp-action="NewProjectNews"><i class="btn btn-success">Добавить новость</i></a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row animate-element delay5 fadeInUp">
+                
+                <div class="col-12">
+                    <div class="service-list row">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Заголовок</th>
+                                <th>Подзаголовок</th>
+                                <th>Описание</th>
+                                <th>Дата релиза</th>
+                                <th>Фон</th>
+                                <th>Автор поста</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.Item1)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-action="EditProjectNews" asp-route-id="@item.Id"><i class="lni lni-highlight-alt"></i></a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Header)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SubHeader)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateRelease)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BackGround)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Administrator)
+                                    </td>
+                                    <td>
+                                        <a asp-action="DeleteProjectNews" asp-route-id="@item.Id"><i class="lni lni-close"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section pp-scrollable slide-personal-services">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-light slide-services-circle2 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-services-circle1 transformRight"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">4</div>
+            <div class="row">
+
+                <div class="col-12">
+                    <h3 class="slide-title-info animate-element delay5 fadeInDown">Вебинары</h3>
+                    <p>
+                        <a asp-action=""><i class="btn btn-success">Добавить вебинар</i></a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row animate-element delay5 fadeInUp">
+
+                <div class="col-12">
+                    <div class="service-list row">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Заголовок</th>
+                                <th>Сообщество</th>
+                                <th>Описание</th>
+                                <th>Дата релиза</th>
+                                <th>Добавил админ</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.Item2)
+                            {
+                                <tr>
+                                    <td>
+                                        <a asp-action="" asp-route-id="@item.Id"><i class="lni lni-highlight-alt"></i></a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Header)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateWebinar)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Administrator)
+                                    </td>
+                                    <td>
+                                        <a asp-action="" asp-route-id="@item.Id"><i class="lni lni-close"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

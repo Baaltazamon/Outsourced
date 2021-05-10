@@ -1,0 +1,51 @@
+﻿@model Outsourced.Models.Administrator
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="section pp-scrollable slide-dark slide-dark-footer slide-personal-intro">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-golden slide-intro-circle1 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-intro-circle2 transformRight"></div>
+            <div class="slide-photo slide-intro-man"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">1</div>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="slide-title animate-element delay5 fadeInDown">Редактировать</h1>
+                    <div class="animate-element delay5 fadeInUp">
+                        <form method="post" asp-action="EditAdmin">
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="text" name="username" asp-for="UserName" class="form-control" required="" placeholder="Имя пользователя *">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="text" name="lastname" asp-for="LastName" class="form-control" required="" placeholder="Фамилия *">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="text" name="firstname" asp-for="FirstName" class="form-control" required="" placeholder="Имя *">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="text" name="middlename" asp-for="MiddleName" class="form-control" placeholder="Отчество">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </form>
+                        @if (ViewBag.Message != null)
+                        {
+                            <script type="text/javascript">
+                                window.onload = function() {
+                                    alert("@ViewBag.Message");
+                                }
+                            </script>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

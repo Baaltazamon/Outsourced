@@ -1,0 +1,46 @@
+﻿@model Outsourced.Models.ProjectNews
+
+@{
+    ViewData["Title"] = "EditProjectNews";
+}
+
+<div class="section pp-scrollable slide-dark slide-dark-footer slide-personal-intro">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-golden slide-intro-circle1 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-intro-circle2 transformRight"></div>
+            <div class="slide-photo slide-intro-man"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">1</div>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="slide-title animate-element delay5 fadeInDown">Добавить проект</h1>
+                    <div class="animate-element delay5 fadeInUp">
+                        <form method="post" asp-action="EditProjectNewsConfirm" asp-route-id="@Model.Id">
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="text" name="header" asp-for="Header" class="form-control" required="" placeholder="Заголовок *">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="text" name="subheader" asp-for="SubHeader" class="form-control" required="" placeholder="Подзаголовок *">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <textarea name="description" asp-for="Description" class="form-control" required="" placeholder="Описание *" rows="3"></textarea>
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="file" name="background" asp-for="BackGround" class="form-control" required="" placeholder="Фон *">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="date" name="daterelease" asp-for="DateRelease" class="form-control" required="" placeholder="Дата релиза *">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <button type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

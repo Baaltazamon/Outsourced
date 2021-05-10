@@ -1,0 +1,40 @@
+﻿@model Outsourced.Models.ProjectNews
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="section pp-scrollable slide-dark slide-dark-footer slide-personal-intro">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-golden slide-intro-circle1 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-intro-circle2 transformRight"></div>
+            <div class="slide-photo slide-intro-man"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">1</div>
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="slide-title animate-element delay5 fadeInDown">Удаление</h1>
+                    <div class="animate-element delay5 fadeInUp">
+                        <form method="post" asp-action="DeletePrijectNewsConfirm" asp-route-id="@Model.Id">
+
+                            <div class="form-group form-group-material a-form-group">
+                                <div class="text-primary">
+                                    Вы уверены, что хотитие удалить информацию о проекте @Html.DisplayFor(model => model.Header)?
+                                </div>
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <button type="submit" class="btn btn-dark">Отмена</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

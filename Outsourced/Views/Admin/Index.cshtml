@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Outsourced.Models.Administrator>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="section pp-scrollable slide-dark slide-dark-footer slide-personal-intro">
+    <div class="slide-container">
+        <div class="slide-bg">
+            <div class="slide-photo circle-golden slide-intro-circle1 transformLeft"></div>
+            <div class="slide-photo circle-brown slide-intro-circle2 transformRight"></div>
+            <div class="slide-photo slide-intro-man"></div>
+        </div>
+        <div class="container">
+            <div class="slide-num">1</div>
+            <div class="row">
+                <div class="col-sm-6 col-10">
+                    <h1 class="slide-title animate-element delay5 fadeInDown">Авторизация</h1>
+                    <div class="animate-element delay5 fadeInUp">
+                        <form method="post" action="/Admin/Authorization">
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="text" name="login" class="form-control" required="" placeholder="Логин">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <input type="password" name="password" class="form-control" required="" placeholder="Пароль">
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <button type="submit" class="btn btn-success">Войти</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
