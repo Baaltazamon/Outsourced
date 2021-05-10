@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Outsourced.Models;
 using System.Diagnostics;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Outsourced.Controllers
@@ -71,7 +72,7 @@ namespace Outsourced.Controllers
             }
             if (CheckUser())
                 return RedirectToAction(nameof(Index));
-            return View(Tuple.Create(db.ProjectNews.ToList(), db.Communities.Where(c => c.DateWebinar > DateTime.Now).ToList(),
+            return View(Tuple.Create(db.ProjectNews.ToList(), db.Communities.ToList(),
                 db.Requests.Where(c=>c.Administrator==null).ToList(), db.Users.ToList(), db.TypeRequests.ToList(), db.Administrators.ToList()));
         }
 
@@ -119,17 +120,50 @@ namespace Outsourced.Controllers
             db.SaveChanges();
             return RedirectToAction(nameof(AdminPanel));
         }
+        public ActionResult NewWebinar()
+        {
+            if (CheckUser())
+                return RedirectToAction(nameof(Index));
+            return View(db.TypeRequests.ToList());
+        }
+        public IActionResult AddNewWebinar(string header, string type, string description, DateTime datewebinar)
+        {
+            if (CheckUser())
+                return RedirectToAction(nameof(Index));
+            var ad = UserIdentity.username.SingleOrDefault(c => c.ip.Equals(UserIdentity.GetIPAddress()));
+            if (ad != null)
+            {
+                var web = new Community
+                {
+                    Header = header,
+                    Type = type,
+                    Administrator = ad.username,
+                    DateWebinar = datewebinar,
+                    Description = description
+                };
+                db.Communities.Add(web);
+            }
+            db.SaveChanges();
+            return RedirectToAction(nameof(AdminPanel));
+        }
+
         public ActionResult NewProjectNews()
         {
             if (CheckUser())
                 return RedirectToAction(nameof(Index));
             return View();
         }
-        public IActionResult AddNewProjectNews(string header, string subheader, string description, string background, DateTime daterelease)
+        public IActionResult AddNewProjectNews(string header, string subheader, string description, IFormFile background, DateTime daterelease)
         {
             if (CheckUser())
                 return RedirectToAction(nameof(Index));
             var ad = UserIdentity.username.SingleOrDefault(c => c.ip.Equals(UserIdentity.GetIPAddress()));
+            var dir = Environment.CurrentDirectory + "\\wwwroot\\img";
+            string newPath = header + background.FileName;
+            using (var fileStream = new FileStream(Path.Combine(dir, newPath), FileMode.Create, FileAccess.Write))
+            {
+                background.CopyTo(fileStream);
+            }
             if (ad != null)
             {
                 ProjectNews pn = new ProjectNews
@@ -138,7 +172,7 @@ namespace Outsourced.Controllers
                     SubHeader = subheader,
                     DateRelease = daterelease,
                     Description = description,
-                    BackGround = $"img/{background}",
+                    BackGround = $"img/{newPath}",
                     Administrator = ad.username
                 };
                 db.ProjectNews.Add(pn);
@@ -166,6 +200,36 @@ namespace Outsourced.Controllers
             return RedirectToAction(nameof(AdminPanel));
         }
 
+        public ActionResult EditWebinar(int id)
+        {
+            if (CheckUser())
+                return RedirectToAction(nameof(Index));
+            var pn = db.Communities.SingleOrDefault(c => c.Id == id);
+            if (pn is null)
+                return NotFound();
+
+            return View(Tuple.Create(pn, db.TypeRequests.ToList()));
+        }
+        public IActionResult EditWebinarConfirm(int id, string header, string type, string description, DateTime datewebinar)
+        {
+            if (CheckUser())
+                return RedirectToAction(nameof(Index));
+            var ad = UserIdentity.username.SingleOrDefault(c => c.ip.Equals(UserIdentity.GetIPAddress()));
+            var pn = db.Communities.SingleOrDefault(c => c.Id == id);
+            if (pn is null)
+                return NotFound();
+            else
+            {
+                pn.Header = header;
+                pn.Type = type;
+                pn.DateWebinar = datewebinar;
+                pn.Description = description;
+                if (ad != null) pn.Administrator = ad.username;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction(nameof(AdminPanel));
+        }
         public ActionResult EditProjectNews(int id)
         {
             if (CheckUser())
@@ -176,12 +240,23 @@ namespace Outsourced.Controllers
 
             return View(pn);
         }
-        public IActionResult EditProjectNewsConfirm(int id, string header, string subheader, string description, string background, DateTime daterelease)
+        public IActionResult EditProjectNewsConfirm(int id, string header, string subheader, string description, IFormFile background, DateTime daterelease)
         {
             if (CheckUser())
                 return RedirectToAction(nameof(Index));
             var ad = UserIdentity.username.SingleOrDefault(c => c.ip.Equals(UserIdentity.GetIPAddress()));
             var pn = db.ProjectNews.SingleOrDefault(c => c.Id == id);
+            string newPath = "";
+            if (background != null)
+            {
+                var dir = Environment.CurrentDirectory + "\\wwwroot\\img";
+                newPath = ad.username + background.FileName;
+                using (var fileStream = new FileStream(Path.Combine(dir, newPath), FileMode.Create, FileAccess.Write))
+                {
+                    background.CopyTo(fileStream);
+                }
+            }
+            
             if (pn is null)
                 return NotFound();
             else
@@ -190,10 +265,14 @@ namespace Outsourced.Controllers
                 pn.SubHeader = subheader;
                 pn.DateRelease = daterelease;
                 pn.Description = description;
-                pn.BackGround = background;
+                
                 if (ad != null) pn.Administrator = ad.username;
             }
 
+            if (background != null)
+            {
+                pn.BackGround = $"img/{newPath}";
+            }
             db.SaveChanges();
             return RedirectToAction(nameof(AdminPanel));
         }
@@ -230,6 +309,26 @@ namespace Outsourced.Controllers
             if (pn is null)
                 return NotFound();
             return View(pn);
+        }
+        public ActionResult DeleteWebinar(int id)
+        {
+            if (CheckUser())
+                return RedirectToAction(nameof(Index));
+            var pn = db.Communities.SingleOrDefault(c => c.Id == id);
+            if (pn is null)
+                return NotFound();
+            return View(pn);
+        }
+        public ActionResult DeleteWebinarConfirm(int id)
+        {
+            if (CheckUser())
+                return RedirectToAction(nameof(Index));
+            var pn = db.Communities.SingleOrDefault(c => c.Id == id);
+            if (pn is null)
+                return NotFound();
+            db.Communities.Remove(pn);
+            db.SaveChanges();
+            return RedirectToAction(nameof(AdminPanel));
         }
         public ActionResult DeletePrijectNewsConfirm(int id)
         {

@@ -400,7 +400,7 @@
                                 </div>
                                 <div class="col-lg-5 animate-element delay7 fadeInUp">
                                     <div class="slide-title-info">Назначим встречу в нашем уютном офисе и за чашечкой кофе <span class="text-primary">обсудим ваши пожелания о будущем продукте.</span></div>
-                                    <form class="contact-personal-form" method="post" action="/Home/AddFullRequest">
+                                    <form class="contact-personal-form" method="post" enctype="multipart/form-data" action="/Home/AddFullRequest">
                                         <div class="form-group form-group-material a-form-group">
                                             <label class="label">ФИО</label>
                                             <input type="text" class="form-control" name="name" required />
@@ -424,7 +424,8 @@
                                             <textarea class="form-control" name="message" cols="30" rows="3"></textarea>
                                         </div>
                                         <div class="form-group control-file a-file">
-                                            <input type="file" name="file_attach[]" multiple />
+                                            <input id="max_id" type="hidden" name="MAX_FILE_SIZE" value="20971520" />
+                                            <input type="file" name="file" accept=".pdf,.doc,.docx" onchange="upload_check()" id="file_id" />
                                             <div class="file-path-wrapper">
                                                 <i class="lni lni-paperclip text-primary"></i>
                                                 <input class="file-path form-control" placeholder="Загрузить ТЗ(.doc;.pdf)" />

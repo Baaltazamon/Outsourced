@@ -1,4 +1,12 @@
+function upload_check() {
+    var upl = document.getElementById("file_id");
+    var max = document.getElementById("max_id").value;
 
+    if (upl.files[0].size > max) {
+        alert("File too big!");
+        upl.value = "";
+    }
+};
 (function ($) {
 	'use strict';
 

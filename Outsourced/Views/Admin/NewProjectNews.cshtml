@@ -16,7 +16,7 @@
                 <div class="col-12">
                     <h1 class="slide-title animate-element delay5 fadeInDown">Добавить проект</h1>
                     <div class="animate-element delay5 fadeInUp">
-                        <form method="post" asp-action="AddNewProjectNews">
+                        <form method="post" asp-action="AddNewProjectNews" enctype="multipart/form-data">
                             <div class="form-group form-group-material a-form-group">
                                 <input type="text" name="header" class="form-control" required="" placeholder="Заголовок *">
                             </div>
@@ -25,15 +25,18 @@
                             </div>
                             <div class="form-group form-group-material a-form-group">
                                 <textarea name="description" class="form-control" required="" placeholder="Описание *" rows="3"></textarea>
-                                </div>
+                            </div>
                             <div class="form-group form-group-material a-form-group">
-                                <input type="file" name="background" class="form-control" required="" placeholder="Фон *">
+                                <input type="file" accept="image/*" name="background" class="form-control" required="" placeholder="Фон *">
                             </div>
                             <div class="form-group form-group-material a-form-group">
                                 <input type="date" name="daterelease" class="form-control" required="" placeholder="Дата релиза *">
                             </div>
                             <div class="form-group form-group-material a-form-group">
                                 <button type="submit" class="btn btn-success">Сохранить</button>
+                            </div>
+                            <div class="form-group form-group-material a-form-group">
+                                <a asp-action="AdminPanel" class="btn btn-dark">Отмена</a>
                             </div>
                         </form>
                         

@@ -1,8 +1,9 @@
-﻿@model Outsourced.Models.ProjectNews
-
+﻿@model List<TypeRequest>
 @{
-    ViewData["Title"] = "EditProjectNews";
+    ViewData["Title"] = "New Webinar";
 }
+
+
 
 <div class="section pp-scrollable slide-dark slide-dark-footer slide-personal-intro">
     <div class="slide-container">
@@ -15,24 +16,28 @@
             <div class="slide-num">1</div>
             <div class="row">
                 <div class="col-12">
-                    <h1 class="slide-title animate-element delay5 fadeInDown">Добавить проект</h1>
+                    <h1 class="slide-title animate-element delay5 fadeInDown">Добавить вебинар</h1>
                     <div class="animate-element delay5 fadeInUp">
-                        <form method="post" asp-action="EditProjectNewsConfirm" asp-route-id="@Model.Id">
+                        <form method="post" asp-action="AddNewWebinar">
                             <div class="form-group form-group-material a-form-group">
-                                <input type="text" name="header" asp-for="Header" class="form-control" required="" placeholder="Заголовок *">
+                                <input type="text" name="header" class="form-control" required="" placeholder="Название вебинара *">
                             </div>
                             <div class="form-group form-group-material a-form-group">
-                                <input type="text" name="subheader" asp-for="SubHeader" class="form-control" required="" placeholder="Подзаголовок *">
+                                <select class="form-control" name="type">
+                                    @foreach (var item in Model)
+                                    {
+                                        <option>@Html.DisplayFor(modelItem => item.NameTypeRequest)</option>
+                                    }
+
+                                </select>
                             </div>
                             <div class="form-group form-group-material a-form-group">
-                                <textarea name="description" asp-for="Description" class="form-control" required="" placeholder="Описание *" rows="3"></textarea>
+                                <input type="date" name="datewebinar" class="form-control" required="" placeholder="Когда? *">
                             </div>
                             <div class="form-group form-group-material a-form-group">
-                                <input type="file" accept="image/*" name="background" asp-for="BackGround" class="form-control" required="" placeholder="Фон *">
+                                <input type="text" name="description" class="form-control" placeholder="Отчество">
                             </div>
-                            <div class="form-group form-group-material a-form-group">
-                                <input type="date" name="daterelease" asp-for="DateRelease" class="form-control" required="" placeholder="Дата релиза *">
-                            </div>
+
                             <div class="form-group form-group-material a-form-group">
                                 <button type="submit" class="btn btn-success">Сохранить</button>
                             </div>
@@ -40,10 +45,11 @@
                                 <a asp-action="AdminPanel" class="btn btn-dark">Отмена</a>
                             </div>
                         </form>
-
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

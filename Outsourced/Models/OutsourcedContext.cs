@@ -64,7 +64,7 @@ namespace Outsourced.Models
 
             modelBuilder.Entity<Community>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.Id);
 
                 entity.ToTable("Community");
 

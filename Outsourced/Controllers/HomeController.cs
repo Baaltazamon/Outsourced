@@ -4,9 +4,11 @@ using Outsourced.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Outsourced.Controllers
@@ -26,6 +28,7 @@ namespace Outsourced.Controllers
 
         public IActionResult AddRequest(string name, string email, string message)
         {
+            
             var us = db.Users.SingleOrDefault(c => c.Email == email);
             string[] fio = name.Split(" ");
             if (us is null)
@@ -49,8 +52,9 @@ namespace Outsourced.Controllers
             db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult AddFullRequest(string name, string email, string category, string message,  string file_attach)
+        public IActionResult AddFullRequest(string name, string email, string category, string message,   IFormFile file)
         {
+            
             var us = db.Users.SingleOrDefault(c => c.Email == email);
             string[] fio = name.Split(" ");
             if (us is null)
@@ -66,6 +70,18 @@ namespace Outsourced.Controllers
                 db.SaveChanges();
             }
 
+            string newPath = "";
+            int count = db.Requests.Where(c => c.UserRequest == email).ToList().Count;
+            if (file != null)
+            {
+                var dir = Environment.CurrentDirectory + "\\wwwroot\\files";
+                newPath = email + count + file.FileName;
+                using (var fileStream = new FileStream(Path.Combine(dir, newPath), FileMode.Create, FileAccess.Write))
+                {
+                    file.CopyTo(fileStream);
+                }
+            }
+            
             var type = db.TypeRequests.SingleOrDefault(c => c.NameTypeRequest == category.Trim());
             if (type is null)
             {
@@ -80,9 +96,13 @@ namespace Outsourced.Controllers
             {
                 UserRequest = email,
                 Wishes = message,
-                TechnicalTask = file_attach,
                 Type = category.Trim()
             };
+            if (file != null)
+            {
+
+                req.TechnicalTask = newPath;
+            }
             db.Requests.Add(req);
             db.SaveChanges();
             return RedirectToAction(nameof(Index));

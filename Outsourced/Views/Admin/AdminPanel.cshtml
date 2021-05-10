@@ -206,7 +206,7 @@
                 <div class="col-12">
                     <h3 class="slide-title-info animate-element delay5 fadeInDown">Вебинары</h3>
                     <p>
-                        <a asp-action=""><i class="btn btn-success">Добавить вебинар</i></a>
+                        <a asp-action="NewWebinar"><i class="btn btn-success">Добавить вебинар</i></a>
                     </p>
                 </div>
             </div>
@@ -231,7 +231,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <a asp-action="" asp-route-id="@item.Id"><i class="lni lni-highlight-alt"></i></a>
+                                        <a asp-action="EditWebinar" asp-route-id="@item.Id"><i class="lni lni-highlight-alt"></i></a>
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Header)
