@@ -159,7 +159,7 @@ namespace Outsourced.Controllers
                 return RedirectToAction(nameof(Index));
             var ad = UserIdentity.username.SingleOrDefault(c => c.ip.Equals(UserIdentity.GetIPAddress()));
             var dir = Environment.CurrentDirectory + "\\wwwroot\\img";
-            string newPath = header + background.FileName;
+            string newPath = ad.username + background.FileName;
             using (var fileStream = new FileStream(Path.Combine(dir, newPath), FileMode.Create, FileAccess.Write))
             {
                 background.CopyTo(fileStream);
